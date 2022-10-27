@@ -7,6 +7,10 @@ inputs:
   path:
     description: 'The file or folder to be cached'
     required: true
+  share_root:
+    description: 'The root folder used for the shared cache'
+    required: true
+    default: Z:/
 outputs:
   cache-hit:
     description: 'A boolean value to indicate if cache was found and restored'

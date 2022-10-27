@@ -2422,12 +2422,9 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getVars = void 0;
 const path_1 = __importDefault(__nccwpck_require__(17));
 const core = __importStar(__nccwpck_require__(186));
-const { GITHUB_REPOSITORY, RUNNER_TOOL_CACHE } = process.env;
+const { GITHUB_REPOSITORY } = process.env;
 const CWD = process.cwd();
 const getVars = () => {
-    if (!RUNNER_TOOL_CACHE) {
-        throw new TypeError('Expected RUNNER_TOOL_CACHE environment variable to be defined.');
-    }
     if (!GITHUB_REPOSITORY) {
         throw new TypeError('Expected GITHUB_REPOSITORY environment variable to be defined.');
     }
@@ -2438,7 +2435,11 @@ const getVars = () => {
     if (!options.path) {
         throw new TypeError('path is required but was not provided.');
     }
-    const cacheDir = path_1.default.join(RUNNER_TOOL_CACHE, GITHUB_REPOSITORY, options.key);
+    const share_root = core.getInput('share_root');
+    if (!share_root) {
+        throw new TypeError('share_root is required but was not provided.');
+    }
+    const cacheDir = path_1.default.join(share_root, GITHUB_REPOSITORY, options.key);
     const cachePath = path_1.default.join(cacheDir, options.path);
     const targetPath = path_1.default.resolve(CWD, options.path);
     const { dir: targetDir } = path_1.default.parse(targetPath);

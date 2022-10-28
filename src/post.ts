@@ -4,6 +4,7 @@ import { mkdirP, mv } from '@actions/io'
 import { getVars } from './lib/getVars'
 import { isErrorLike } from './lib/isErrorLike'
 import log from './lib/log'
+import * as fs from 'fs'
 
 async function post(): Promise<void> {
   try {

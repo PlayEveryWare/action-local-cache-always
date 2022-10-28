@@ -3568,7 +3568,7 @@ const getVars = () => {
     if (!options.path) {
         throw new TypeError('path is required but was not provided.');
     }
-    const share_root = core.getInput('share_root');
+    const share_root = core.getInput('share_root') || process.env.RUNNER_TOOL_CACHE;
     if (!share_root) {
         throw new TypeError('share_root is required but was not provided.');
     }
